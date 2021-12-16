@@ -26,7 +26,7 @@ def main():
     dp.add_handler(CommandHandler("start", greet_user))
 
     # logging.info("Бот стартовал")
-    logging.info('hello')
+    logging.info('Started')
     mybot.start_polling()
     mybot.idle()
 
