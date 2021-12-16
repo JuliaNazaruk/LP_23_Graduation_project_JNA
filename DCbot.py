@@ -1,7 +1,9 @@
 
 #import of components
 import logging
-from telegram.ext import Updater, CommandHandler,MessageHandler
+
+from telegram.ext import CommandHandler, MessageHandler, Updater
+
 import settings
 
 #логирование в файл
@@ -23,7 +25,8 @@ def main():
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
 
-    logging.info("Бот стартовал")
+    # logging.info("Бот стартовал")
+    logging.info('hello')
     mybot.start_polling()
     mybot.idle()
 
