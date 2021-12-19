@@ -4,6 +4,8 @@ import logging
 
 from telegram.ext import CommandHandler, MessageHandler, Updater
 
+from telegram import ReplyKeyboardMarkup
+
 import settings
 
 #логирование в файл
@@ -15,8 +17,17 @@ PROXY = {'proxy_url': settings.PROXY_URL,
 
 # Приветствие юзера
 def greet_user(update, context):
-    print('Вызван /start')
-    update.message.reply_text('Привет, не знаешь что приготовить? Понимаю, давай попробуем уточнить детали. Если подойдет совершенно любая идея - выбирай рулетку ;)')
+    
+    keyboard_1_lvl = ReplyKeyboardMarkup([
+        ['Завтрак', 'Суп'],
+        ['Основное блюдо', 'Гарнир'],
+        ['Рулетка']
+        ])
+
+    update.message.reply_text(
+        f'Привет, не знаешь что приготовить? Понимаю, давай попробуем уточнить детали. Если подойдет совершенно любая идея - выбирай рулетку ;)',
+        reply_markup = keyboard_1_lvl 
+        )
 
 # Функция, которая соединяется с платформой Telegram, "тело" нашего бота
 def main():
