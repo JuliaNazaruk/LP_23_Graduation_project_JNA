@@ -2,9 +2,9 @@
 #import of components
 import logging
 
-from telegram.ext import CommandHandler, MessageHandler, Updater
+from telegram.ext import CommandHandler, MessageHandler, Updater, Filters
 
-from telegram import ReplyKeyboardMarkup
+from keyboards import keyboard_1_lvl, keyboard_2_lvl_function
 
 import settings
 
@@ -18,16 +18,11 @@ PROXY = {'proxy_url': settings.PROXY_URL,
 # Приветствие юзера
 def greet_user(update, context):
     
-    keyboard_1_lvl = ReplyKeyboardMarkup([
-        ['Завтрак', 'Суп'],
-        ['Основное блюдо', 'Гарнир'],
-        ['Рулетка']
-        ])
-
-    update.message.reply_text(
-        f'Привет, не знаешь что приготовить? Понимаю, давай попробуем уточнить детали. Если подойдет совершенно любая идея - выбирай рулетку ;)',
+       update.message.reply_text(
+        f'Привет, не знаешь что приготовить? Понимаю, давай попробуем уточнить детали.',
         reply_markup = keyboard_1_lvl 
         )
+
 
 # Функция, которая соединяется с платформой Telegram, "тело" нашего бота
 def main():
@@ -35,6 +30,7 @@ def main():
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(MessageHandler(Filters.text, keyboard_2_lvl_function))
 
     # logging.info("Бот стартовал")
     logging.info('Started')
