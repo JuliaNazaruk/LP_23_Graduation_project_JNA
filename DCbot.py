@@ -6,6 +6,8 @@ from telegram.ext import CommandHandler, MessageHandler, Updater, Filters
 
 from keyboards import keyboard_1_lvl, keyboard_2_lvl_function
 
+from result import result_link
+
 import settings
 
 #логирование в файл
@@ -31,6 +33,7 @@ def main():
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(MessageHandler(Filters.text, keyboard_2_lvl_function))
+    dp.add_handler(MessageHandler(Filters.text, result_link))
 
     # logging.info("Бот стартовал")
     logging.info('Started')
