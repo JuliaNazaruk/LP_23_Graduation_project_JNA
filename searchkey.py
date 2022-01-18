@@ -16,14 +16,6 @@ key_part1_dictionary = {
 }
 
 
-#определим первый параметр ключа
-def key_part1_def(update, context):
-    user_answer_1 = context.user_data["dialog_dict"].get("key_part_1")
-    key_part1 = key_part1_dictionary[user_answer_1]
-    print (key_part1)
-    return key_part1
-    
-
 #словарь для определения значения второго праметра ключа
 key_part2_dictionary = {
     "Творог":"1",
@@ -41,28 +33,22 @@ key_part2_dictionary = {
 }
 
 
-#определим второй параметр ключа
-def key_part2_def(update, context):
-    user_answer_2 = context.user_data["dialog_dict"].get("key_part_2")
-    print(user_answer_2)
-    key_part2 = key_part2_dictionary[user_answer_2]
-    print (key_part2)  
-    return key_part2
-
-
-#определим третий параметр ключа - случайное число в диапазоне от 1 до 5
-def key_part3_def(number):
-    key_part3 = randint(1, 5)
-    return key_part3
-
-
 #"соберем" весь ключ
 def searchkey_val(update, context):
     print ("searchkey_val started")
-    print (key_part2_def)
-    full_key = str(key_part1_def)&str(key_part2_def)&str(key_part3_def)
-    print (full_key)
+    user_answer_1 = context.user_data["dialog_dict1"].get("key_part_1")
+    print("user_answer_1",user_answer_1)
+    key_part1 = key_part1_dictionary[user_answer_1]
+    print("key part 1",key_part1)
+    print(type(key_part1))
+    user_answer_2 = context.user_data["dialog_dict2"].get("key_part_2")
+    print("user answer 2",user_answer_2)
+    key_part2 = key_part2_dictionary[user_answer_2]
+    print("key part 2", key_part2)
+    key_part3 = str(randint(1, 5))
+    print("random", key_part3)
+    full_key = "".join ([key_part1,key_part2,key_part3])
+    print ("full key",full_key)
     
-    return ConversationHandler.END
 
 

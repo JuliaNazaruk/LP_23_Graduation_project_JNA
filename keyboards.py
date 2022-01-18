@@ -26,7 +26,7 @@ keyboard_2_lvl_side = ReplyKeyboardMarkup([
 
 #определим условие выбора клавиатуры 2го уровня
 def keyboard_2_lvl_function(update, context):
-    user_answer_1_search = context.user_data["dialog_dict"].get("key_part_1")
+    user_answer_1_search = context.user_data["dialog_dict1"].get("key_part_1")
     
     if user_answer_1_search == "Завтрак":
         update.message.reply_text(

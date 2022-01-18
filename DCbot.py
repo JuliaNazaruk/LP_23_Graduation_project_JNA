@@ -5,11 +5,9 @@ import logging
 from telegram.ext import (CommandHandler, MessageHandler, Updater, Filters, 
                           ConversationHandler)
 
-from telegram import ReplyKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, update
 
-from dialog_part_1 import dialog_start, user_temporary_dict
-
-from dialog_part_2 import dialog_part_2, dialog_part_3
+from dialog import dialog_start, dialog_part_2, dialog_part_3
 
 from searchkey import searchkey_val
 
@@ -36,6 +34,7 @@ def greet_user(update, context):
         reply_markup = keyboard_greet
         )
 
+
 # Функция, которая соединяется с платформой Telegram, "тело" нашего бота
 def main():
     mybot = Updater(settings.API_KEY, use_context=True, request_kwargs=PROXY)
@@ -46,11 +45,9 @@ def main():
 
         entry_points=[MessageHandler(Filters.regex('^(Давай)$'), dialog_start)],
 
-        states={"user_temporary_dict_meal_type": [MessageHandler(Filters.text,user_temporary_dict)],
-                "meal_subtype_selection": [MessageHandler(Filters.text, dialog_part_2)],
+        states={"meal_subtype_selection": [MessageHandler(Filters.text, dialog_part_2)],
                 "user_temporary_dict_meal_subtype": [MessageHandler(Filters.text,dialog_part_3)],
-                "searchkey_value_for_DB": [MessageHandler(Filters.text,searchkey_val)]
-                },
+               },
 
         fallbacks=[]
     )
@@ -58,7 +55,7 @@ def main():
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(dialog)
     
-
+    
 
     # logging.info("Бот стартовал")
     logging.info('Started')
