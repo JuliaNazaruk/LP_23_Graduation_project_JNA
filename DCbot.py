@@ -7,9 +7,7 @@ from telegram.ext import (CommandHandler, MessageHandler, Updater, Filters,
 
 from telegram import ReplyKeyboardMarkup, update
 
-from dialog import dialog_start, dialog_part_2, dialog_part_3
-
-from searchkey import searchkey_val
+from dialog import greet_user, dialog_start, dialog_part_2, dialog_part_3, user_changed_his_mind
 
 import settings
 
@@ -21,18 +19,6 @@ logging.basicConfig(filename='bot.log', level=logging.INFO)
 #PROXY settings
 PROXY = {'proxy_url': settings.PROXY_URL,
     'urllib3_proxy_kwargs': {'username': settings.PROXY_USERNAME, 'password': settings.PROXY_PASSWORD}}
-
-# Приветствие юзера
-def greet_user(update, context):
-    
-    keyboard_greet = ReplyKeyboardMarkup([
-       ['Давай', 'Я передумал']
-       ])
-
-    update.message.reply_text(
-        f'Привет, не знаешь что приготовить? Понимаю, давай попробую помочь',
-        reply_markup = keyboard_greet
-        )
 
 
 # Функция, которая соединяется с платформой Telegram, "тело" нашего бота
@@ -47,14 +33,14 @@ def main():
 
         states={"meal_subtype_selection": [MessageHandler(Filters.text, dialog_part_2)],
                 "user_temporary_dict_meal_subtype": [MessageHandler(Filters.text,dialog_part_3)],
-               },
+                },
 
         fallbacks=[]
     )
 
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(dialog)
-    
+    dp.add_handler(MessageHandler(Filters.regex('^(Я передумал)$'), user_changed_his_mind))
     
 
     # logging.info("Бот стартовал")

@@ -1,36 +1,11 @@
 
 from random import randint
 from telegram.ext.conversationhandler import ConversationHandler
+from dictionaries import key_part1_dictionary, key_part2_dictionary, search_result
 
 #определим ключ для поиска ссылки для отправки пользователю по следующему правилу:
-# где первая часть ключа - это параметр первого уровня, вторая часть ключа - это параметр второго уровня, 
-# а третья часть - это случайное число в заданном диапазоне
-
-
-#словарь для определения значения первого праметра ключа
-key_part1_dictionary = {
-    "Завтрак":"1",
-    "Суп":"2",
-    "Основное блюдо":"3",
-    "Гарнир":"4"
-}
-
-
-#словарь для определения значения второго праметра ключа
-key_part2_dictionary = {
-    "Творог":"1",
-    "Яйца":"2",
-    "Каша":"3",
-    "Пюре":"1",        
-    "Диетический":"2",
-    "Сытный":"3",
-    "Курица":"1",        
-    "Свинина":"2",
-    "Говядина":"3",      
-    "Каши":"1",        
-    "Картофель":"2",
-    "Овощи":"3" 
-}
+# где первая и вторая часть ключа - это параметр соответствующий выбору из первой и второй клавиатуры соответственно, 
+# а третья часть - это случайное число в заданном диапазоне от 1 до 5
 
 
 #"соберем" весь ключ
@@ -49,6 +24,12 @@ def searchkey_val(update, context):
     print("random", key_part3)
     full_key = "".join ([key_part1,key_part2,key_part3])
     print ("full key",full_key)
+    result_link_to_send=search_result.get(full_key)
+    print (result_link_to_send)
+    return result_link_to_send
+
+
+
     
 
 

@@ -78,3 +78,6 @@ def dialog_part_3(update, context):
     searchkey_val(update, context)
     print(searchkey_val())
     return ConversationHandler.END
+
+
+#return cursor.fetchone()
