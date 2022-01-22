@@ -15,7 +15,7 @@ def greet_user(update, context):
        ])
 
     update.message.reply_text(
-        f'Привет, не знаешь что приготовить? Понимаю, давай попробую помочь',
+        f'Не знаешь что приготовить? Понимаю, давай попробую помочь',
         reply_markup = keyboard_greet
         )
 
@@ -30,7 +30,7 @@ keyboard_1_lvl = ReplyKeyboardMarkup([
 def dialog_start(update, context):
     print("dialog started")
     update.message.reply_text(
-        f'Уточни, пожалуйста, что ты хочешь приготовить?.',
+        f'Уточни, пожалуйста, что ты хочешь приготовить?',
         reply_markup = keyboard_1_lvl
         )
     return "meal_subtype_selection"
@@ -59,11 +59,12 @@ def dialog_part_3(update, context):
        ])
 
     update.message.reply_text(
-        f'Могу найти еще один рецепт для тебя - нажми /start',
+        f'Могу найти еще один рецепт - нажми /start',
         reply_markup = keyboard_bye
         )
     return ConversationHandler.END
 
+#диалог после нажатия кнопки "Я передумал"
 def user_changed_his_mind(update, context):
     
     keyboard_bye = ReplyKeyboardMarkup([
@@ -71,6 +72,6 @@ def user_changed_his_mind(update, context):
        ])
 
     update.message.reply_text(
-        f'Если передумаешь - нажми /start и я найду рецепт для тебя',
+        f'Ничего страшного, я подожду тут. Если понадобится моя помощь - нажми /start и я найду рецепт для тебя',
         reply_markup = keyboard_bye
         )

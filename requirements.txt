@@ -11,5 +11,3 @@ six==1.16.0
 tornado==6.1
 tzdata==2021.5
 tzlocal==4.1
- psycopg2-binary==2.9.3
- greenlet-1.1.2 sqlalchemy==1.4.29
